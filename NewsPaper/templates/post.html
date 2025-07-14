@@ -3,7 +3,11 @@
 {% load custom_filters %}
 
 {% block title %}
-Post
+{% if post.article_or_news = 'NE' %}
+Новость
+{% else %}
+Статья
+{% endif %}
 {% endblock title %}
 
 

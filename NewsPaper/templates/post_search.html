@@ -1,0 +1,34 @@
+{% extends "flatpages/default.html" %}
+
+{% load custom_filters %}
+
+{% block title %}
+Поиск новостей и статей
+{% endblock title %}
+
+{% block content %}
+<h1>Поиск новостей и статей</h1>
+<hr>
+<form method="get">
+    {{ filter.form.as_p }}
+    <input type="submit" value="Найти"/>
+</form>
+{% if filter.qs %}
+<table>
+    <tr>
+        <td>Заголовок</td>
+        <td>Дата публикации</td>
+        <td>Текст (первые 20 слов)</td>
+    </tr>
+    {% for obj in filter.qs %}
+    <tr>
+        <td>{{ obj.name|censor }}</td>
+        <td>{{ obj.datetime_of_creation|date:'d M Y' }}</td>
+        <td>{{ obj.text|truncatewords:20|censor }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h2>Ничего не найдено.</h2>
+{% endif %}
+{% endblock content %}

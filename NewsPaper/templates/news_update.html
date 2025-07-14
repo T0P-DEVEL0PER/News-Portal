@@ -1,0 +1,19 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Изменение новости
+{% endblock title %}
+
+{% block content %}
+<h1>Изменение новости</h1>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    {% if object.article_or_news == 'NE' %}
+    {{ form.as_p }}
+    <input type="submit" value="Изменить"/>
+    {% else %}
+    <p>"{{ object.name }}" не является новостью.</p>
+    {% endif %}
+</form>
+{% endblock content %}

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
-from .resources import VARIANTS
 
 
 class Author(models.Model):
@@ -30,6 +30,14 @@ class Category(models.Model):
 
 
 class Post(models.Model):
+    article = 'AR'
+    news = 'NE'
+
+    VARIANTS = [
+        (article, 'Статья'),
+        (news, 'Новость')
+    ]
+
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     article_or_news = models.CharField(max_length=2, choices=VARIANTS)
     datetime_of_creation = models.DateTimeField(auto_now_add=True)
@@ -51,6 +59,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.name}: {self.text[:20]}'
+
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[str(self.id)])
 
 
 class PostCategory(models.Model):
