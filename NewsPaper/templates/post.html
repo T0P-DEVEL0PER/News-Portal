@@ -1,9 +1,9 @@
-{% extends 'flatpages/default.html' %}
+{% extends 'default.html' %}
 
 {% load custom_filters %}
 
 {% block title %}
-{% if post.article_or_news = 'NE' %}
+{% if post.article_or_news == 'NE' %}
 Новость
 {% else %}
 Статья
@@ -12,6 +12,9 @@
 
 
 {% block content %}
+{% if is_not_authors %}
+<button> <a href="upgrade/">Стать автором</a> </button>
+{% endif %}
 <table>
     <tr>
         <td>Заголовок</td>
