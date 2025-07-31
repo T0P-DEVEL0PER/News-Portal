@@ -9,7 +9,11 @@
 <hr>
 <form action="" method="post">
     {% csrf_token %}
+    {% if count_of_authors_posts < 3 %}
     {{ form.as_p }}
     <input type="submit" value="Опубликовать"/>
+    {% else %}
+    <p>Достигнут лимит по количеству публикуемых новостей и статей на сегодня.</p>
+    {% endif %}
 </form>
 {% endblock content %}

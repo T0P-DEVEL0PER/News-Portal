@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     rating = models.FloatField(default=0.0)
@@ -24,6 +23,7 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    subscribers = models.ManyToManyField(User, through='UserCategory')
 
     def __str__(self):
         return self.name
@@ -71,6 +71,7 @@ class PostCategory(models.Model):
     def __str__(self):
         return f'{self.category.__str__()} - {self.post.__str__()}'
 
+
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -88,3 +89,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text[:20]
+
+
+class UserCategory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user.__str__()} - {self.category.__str__()}'
