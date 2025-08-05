@@ -9,6 +9,7 @@ from django.contrib.auth.models import Group
 from .forms import PostForm
 from .models import Post, Author, UserCategory, Category
 from .filters import PostFilter
+from .tasks import mail_to_subs
 
 
 class LkView(LoginRequiredMixin, TemplateView):
@@ -50,14 +51,16 @@ def post_search(request):
 
 
 class NewsCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = ('news.add_post', )
+    permission_required = ('news.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'news_create.html'
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.article_or_news = 'NE'
+        post.article_or_news = 'AR'
+        super().form_valid(form)
+        mail_to_subs.apply_async([post.pk], countdown=60)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -71,7 +74,7 @@ class NewsCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 
 class NewsUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = ('news.change_post', )
+    permission_required = ('news.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'news_update.html'
@@ -84,7 +87,7 @@ class NewsDelete(LoginRequiredMixin, DeleteView):
 
 
 class ArticlesCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = ('news.add_post', )
+    permission_required = ('news.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'articles_create.html'
@@ -92,7 +95,10 @@ class ArticlesCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.article_or_news = 'AR'
+        super().form_valid(form)
+        mail_to_subs.apply_async([post.pk], countdown=60)
         return super().form_valid(form)
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -105,7 +111,7 @@ class ArticlesCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 
 class ArticlesUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = ('news.change_post', )
+    permission_required = ('news.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'articles_update.html'
@@ -125,6 +131,7 @@ def upgrade_me(request):
         authors_group.user_set.add(user)
         Author.objects.create(user=user)
     return redirect('/')
+
 
 class TechList(ListView):
     model = Post

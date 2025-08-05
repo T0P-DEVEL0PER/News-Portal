@@ -19,5 +19,6 @@ def send_mail_to_subscribers(instance, **kwargs):
                     <h2>{instance.name}</h2>
                     <p>{instance.text[:50]}</p>
                     <button><a href="http://127.0.0.1:8000/news/{instance.pk}">Перейти и прочитать</a></button>
+                    <p>При отправке этого письма были использованы технологии, предоставляемые сигналами Django.</p>
                 """,
             )
