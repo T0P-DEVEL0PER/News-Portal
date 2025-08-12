@@ -11,9 +11,12 @@
 <h2>Страница авторизованного пользователя {{request.user.username}}</h2>
 <div> Здесь может содержаться персональная информация для каждого пользователя </div>
 
+{% load cache %}
+{% cache 300 profile %}
 <button> <a href="http://127.0.0.1:8000/accounts/email/">Изменить электронную почту</a> </button>
 <button> <a href="http://127.0.0.1:8000/accounts/password/change/">Изменить пароль</a> </button>
 <button> <a href="http://127.0.0.1:8000/accounts/3rdparty/">Настроить вход через Google</a> </button>
 <button> <a href="http://127.0.0.1:8000/accounts/logout/">Выйти</a> </button>
+{% endcache %}
 
 {% endblock %}

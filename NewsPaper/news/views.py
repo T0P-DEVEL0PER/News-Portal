@@ -10,6 +10,7 @@ from .forms import PostForm
 from .models import Post, Author, UserCategory, Category
 from .filters import PostFilter
 from .tasks import mail_to_subs
+from django.core.cache import cache
 
 
 class LkView(LoginRequiredMixin, TemplateView):
@@ -38,11 +39,19 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
+    queryset = Post.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         return context
+
+    def get_object(self, *args, **kwargs):
+        obj = cache.get(f'product-{self.kwargs["pk"]}', None)
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'product-{self.kwargs["pk"]}', obj)
+        return obj
 
 
 def post_search(request):
