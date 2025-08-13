@@ -262,22 +262,22 @@ LOGGING = {
             'propagate': True,
         },
         'django.request': {
-            'handlers': ['error.log', 'mail_admins'],
+            'handlers': ['errors.log', 'mail_admins'],
             'level': 'ERROR',
             'propagate': False,
         },
         'django.server': {
-            'handlers': ['error.log', 'mail_admins'],
+            'handlers': ['errors.log', 'mail_admins'],
             'level': 'ERROR',
             'propagate': False,
         },
         'django.template': {
-            'handlers': ['error.log'],
+            'handlers': ['errors.log'],
             'level': 'ERROR',
             'propagate': False,
         },
         'django.db.backends': {
-            'handlers': ['error.log'],
+            'handlers': ['errors.log'],
             'level': 'ERROR',
             'propagate': False,
         },
@@ -287,3 +287,7 @@ LOGGING = {
         }
     }
 }
+
+ADMINS = os.environ.get('ADMINS')
+
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL')
