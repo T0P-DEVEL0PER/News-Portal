@@ -1,13 +1,14 @@
 {% extends 'default.html' %}
+{% load i18n %}
 
 {% load custom_filters %}
 
 {% block title %}
-Поиск новостей и статей
+{% trans 'Поиск новостей и статей' %}
 {% endblock title %}
 
 {% block content %}
-<h1>Поиск новостей и статей</h1>
+<h1>{% trans 'Поиск новостей и статей' %}</h1>
 <hr>
 <form method="get">
     {{ filter.form.as_p }}
@@ -16,9 +17,9 @@
 {% if filter.qs %}
 <table>
     <tr>
-        <td>Заголовок</td>
-        <td>Дата публикации</td>
-        <td>Текст (первые 20 слов)</td>
+        <td>{% trans 'Заголовок' %}</td>
+        <td>{% trans 'Дата публикации' %}</td>
+        <td>{% trans 'Текст (первые 20 слов)' %}</td>
     </tr>
     {% for obj in filter.qs %}
     <tr>
@@ -29,6 +30,6 @@
     {% endfor %}
 </table>
 {% else %}
-<h2>Ничего не найдено.</h2>
+<h2>{% trans 'Ничего не найдено.' %}</h2>
 {% endif %}
 {% endblock content %}

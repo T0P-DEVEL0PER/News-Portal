@@ -1,22 +1,23 @@
 {% extends "default.html" %}
+{% load i18n %}
 
 {% block title %}
-Личный кабинет
+{% trans 'Личный кабинет' %}
 {% endblock title %}
 
 {% block content %}
 {% if is_not_authors %}
-<button> <a href="http://127.0.0.1:8000/news/upgrade/">Стать автором</a> </button>
+<button> <a href="http://127.0.0.1:8000/news/upgrade/">{% trans 'Стать автором' %}</a> </button>
 {% endif %}
-<h2>Страница авторизованного пользователя {{request.user.username}}</h2>
-<div> Здесь может содержаться персональная информация для каждого пользователя </div>
+<h2>{% trans 'Страница авторизованного пользователя' %} {{request.user.username}}</h2>
+<h3>{% trans 'Здесь может содержаться персональная информация для каждого пользователя' %}</h3>
 
 {% load cache %}
 {% cache 300 profile %}
-<button> <a href="http://127.0.0.1:8000/accounts/email/">Изменить электронную почту</a> </button>
-<button> <a href="http://127.0.0.1:8000/accounts/password/change/">Изменить пароль</a> </button>
-<button> <a href="http://127.0.0.1:8000/accounts/3rdparty/">Настроить вход через Google</a> </button>
-<button> <a href="http://127.0.0.1:8000/accounts/logout/">Выйти</a> </button>
+<button> <a href="http://127.0.0.1:8000/accounts/email/">{% trans 'Изменить электронную почту' %}</a> </button>
+<button> <a href="http://127.0.0.1:8000/accounts/password/change/">{% trans 'Изменить пароль' %}</a> </button>
+<button> <a href="http://127.0.0.1:8000/accounts/3rdparty/">{% trans 'Настроить вход через Google' %}</a> </button>
+<button> <a href="http://127.0.0.1:8000/accounts/logout/">{% trans 'Выйти' %}</a> </button>
 {% endcache %}
 
 {% endblock %}

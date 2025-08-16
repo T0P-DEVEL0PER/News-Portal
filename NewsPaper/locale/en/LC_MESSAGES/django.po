@@ -1,0 +1,206 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-15 15:29+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\templates\account\email\email_confirmation_signup_message.html:11
+msgid "Спасибо за регистрацию"
+msgstr "Thank you for registering"
+
+#: .\templates\account\email\email_confirmation_signup_message.html:12
+msgid "Пожалуйста, перейдите по"
+msgstr "Please follow"
+
+#: .\templates\account\email\email_confirmation_signup_message.html:12
+msgid "ссылке"
+msgstr "the link"
+
+#: .\templates\account\email\email_confirmation_signup_message.html:12
+msgid "для активации Вашего аккаунта."
+msgstr "to activate your account."
+
+#: .\templates\articles_create.html:4 .\templates\articles_create.html:8
+#: .\templates\default.html:48
+msgid "Публикация статьи"
+msgstr "Publishing an article"
+
+#: .\templates\articles_create.html:16 .\templates\news_create.html:16
+msgid "Достигнут лимит по количеству публикуемых новостей и статей на сегодня."
+msgstr "The limit on the number of published news and articles for today has been reached."
+
+#: .\templates\articles_delete.html:4 .\templates\articles_delete.html:8
+msgid "Удаление статьи"
+msgstr "Deleting an article"
+
+#: .\templates\articles_delete.html:13 .\templates\news_delete.html:13
+msgid "Удалить"
+msgstr "Delete"
+
+#: .\templates\articles_delete.html:16 .\templates\articles_update.html:16
+msgid "не является статьёй"
+msgstr "is not an article"
+
+#: .\templates\articles_update.html:4 .\templates\articles_update.html:8
+msgid "Изменение статьи"
+msgstr "Editing an article"
+
+#: .\templates\culture.html:6 .\templates\posts.html:6
+#: .\templates\science.html:6 .\templates\socium.html:6 .\templates\tech.html:6
+msgid "Новости и статьи"
+msgstr "News and articles"
+
+#: .\templates\culture.html:12 .\templates\lk.html:9 .\templates\post.html:16
+#: .\templates\posts.html:12 .\templates\science.html:12
+#: .\templates\socium.html:12 .\templates\tech.html:12
+msgid "Стать автором"
+msgstr "Become an author"
+
+#: .\templates\culture.html:14 .\templates\science.html:14
+#: .\templates\socium.html:14 .\templates\tech.html:14
+msgid "Подписаться"
+msgstr "Subscribe"
+
+#: .\templates\culture.html:15
+msgid "Количество всех новостей и статей в категории Культура"
+msgstr "Total number of news and articles in the category Culture"
+
+#: .\templates\culture.html:20 .\templates\post.html:20
+#: .\templates\post_search.html:19 .\templates\posts.html:19
+#: .\templates\science.html:20 .\templates\socium.html:20
+#: .\templates\tech.html:20
+msgid "Заголовок"
+msgstr "Heading"
+
+#: .\templates\culture.html:21 .\templates\post.html:21
+#: .\templates\post_search.html:20 .\templates\posts.html:20
+#: .\templates\science.html:21 .\templates\socium.html:21
+#: .\templates\tech.html:21
+msgid "Дата публикации"
+msgstr "Publication date"
+
+#: .\templates\culture.html:22 .\templates\post_search.html:21
+#: .\templates\posts.html:21 .\templates\science.html:22
+#: .\templates\socium.html:22 .\templates\tech.html:22
+msgid "Текст (первые 20 слов)"
+msgstr "Text (first 20 words)"
+
+#: .\templates\culture.html:33 .\templates\posts.html:32
+#: .\templates\science.html:33 .\templates\socium.html:33
+#: .\templates\tech.html:33
+msgid "Новостей и статей нет! По крайней мере, на сегодня."
+msgstr "There are no news or articles! At least for today."
+
+#: .\templates\default.html:30
+msgid "Вход"
+msgstr "Log in"
+
+#: .\templates\default.html:33
+msgid "Регистрация"
+msgstr "Registration"
+
+#: .\templates\default.html:36
+msgid "ЛК"
+msgstr "PA"
+
+#: .\templates\default.html:39
+msgid "Новости"
+msgstr "News"
+
+#: .\templates\default.html:42
+msgid "Поиск"
+msgstr "Search"
+
+#: .\templates\default.html:45 .\templates\news_create.html:4
+#: .\templates\news_create.html:8
+msgid "Публикация новости"
+msgstr "Publishing news"
+
+#: .\templates\lk.html:4
+msgid "Личный кабинет"
+msgstr "Personal account"
+
+#: .\templates\lk.html:11
+msgid "Страница авторизованного пользователя"
+msgstr "Authorized user page"
+
+#: .\templates\lk.html:12
+msgid "Здесь может содержаться персональная информация для каждого пользователя"
+msgstr "This may contain personal information for each user"
+
+#: .\templates\lk.html:16
+msgid "Изменить электронную почту"
+msgstr "Change e-mail"
+
+#: .\templates\lk.html:17
+msgid "Изменить пароль"
+msgstr "Change password"
+
+#: .\templates\lk.html:18
+msgid "Настроить вход через Google"
+msgstr "Set up Google login"
+
+#: .\templates\lk.html:19
+msgid "Выйти"
+msgstr "Log out"
+
+#: .\templates\news_delete.html:4 .\templates\news_delete.html:8
+msgid "Удаление новости"
+msgstr "Deleting news"
+
+#: .\templates\news_delete.html:16 .\templates\news_update.html:16
+msgid "не является новостью"
+msgstr "is not news"
+
+#: .\templates\news_update.html:4 .\templates\news_update.html:8
+msgid "Изменение новости"
+msgstr "Editing news"
+
+#: .\templates\post.html:7
+msgid "Новость"
+msgstr "News"
+
+#: .\templates\post.html:9
+msgid "Статья"
+msgstr "Article"
+
+#: .\templates\post.html:22
+msgid "Текст"
+msgstr "Text"
+
+#: .\templates\post_search.html:6 .\templates\post_search.html:10
+msgid "Поиск новостей и статей"
+msgstr "Search news and articles"
+
+#: .\templates\post_search.html:32
+msgid "Ничего не найдено."
+msgstr "Nothing found."
+
+#: .\templates\posts.html:14
+msgid "Количество всех новостей и статей на этой странице"
+msgstr "The number of all news and articles on this page"
+
+#: .\templates\science.html:15
+msgid "Количество всех новостей и статей в категории Наука"
+msgstr "The number of all news and articles in the category Science"
+
+#: .\templates\socium.html:15
+msgid "Количество всех новостей и статей в категории Общество"
+msgstr "The number of all news and articles in the category Society"
+
+#: .\templates\tech.html:15
+msgid "Количество всех новостей и статей в категории Технологии"
+msgstr "Total number of news and articles in the category Technology "

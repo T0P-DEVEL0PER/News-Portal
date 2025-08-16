@@ -1,11 +1,12 @@
 {% extends 'default.html' %}
+{% load i18n %}
 
 {% block title %}
-Публикация статьи
+{% trans 'Публикация статьи' %}
 {% endblock title %}
 
 {% block content %}
-<h1>Публикация статьи</h1>
+<h1>{% trans 'Публикация статьи' %}</h1>
 <hr>
 <form action="" method="post">
     {% csrf_token %}
@@ -13,7 +14,7 @@
     {{ form.as_p }}
     <input type="submit" value="Опубликовать"/>
     {% else %}
-    <p>Достигнут лимит по количеству публикуемых новостей и статей на сегодня.</p>
+    <p>{% trans 'Достигнут лимит по количеству публикуемых новостей и статей на сегодня.' %}</p>
     {% endif %}
 </form>
 {% endblock content %}

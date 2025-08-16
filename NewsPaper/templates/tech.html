@@ -1,25 +1,26 @@
 {% extends 'default.html' %}
+{% load i18n %}
 
 {% load custom_filters %}
 
 {% block title %}
-Новости и статьи
+{% trans 'Новости и статьи' %}
 {% endblock title %}
 
 
 {% block content %}
 {% if is_not_authors %}
-<button><a href="http://127.0.0.1:8000/news/upgrade/">Стать автором</a></button>
+<button><a href="http://127.0.0.1:8000/news/upgrade/">{% trans 'Стать автором' %}</a></button>
 {% endif %}
-<button><a href="http://127.0.0.1:8000/news/tech_subscribe/">Подписаться</a></button>
-<h1>Количество всех новостей и статей в категории "Технологии": {{ tech|length }}</h1>
+<button><a href="http://127.0.0.1:8000/news/tech_subscribe/">{% trans 'Подписаться' %}</a></button>
+<h1>{% trans 'Количество всех новостей и статей в категории Технологии' %}: {{ tech|length }}</h1>
 <hr>
 {% if tech %}
 <table>
     <tr>
-        <td>Заголовок</td>
-        <td>Дата публикации</td>
-        <td>Текст (первые 20 слов)</td>
+        <td>{% trans 'Заголовок' %}</td>
+        <td>{% trans 'Дата публикации' %}</td>
+        <td>{% trans 'Текст (первые 20 слов)' %}</td>
     </tr>
     {% for t in tech %}
     <tr>
@@ -30,28 +31,9 @@
     {% endfor %}
 </table>
 {% else %}
-<h2>Новостей и статей нет! По крайней мере, на сегодня.</h2>
+<h2>{% trans 'Новостей и статей нет! По крайней мере, на сегодня.' %}</h2>
 {% endif %}
 
 
-{% load cache %}
-{% cache 300 pagination %}
-{% if page_obj.has_previous %}
-<a href="?page=1">1</a>
-{% if page_obj.previous_page_number != 1 %}
-...
-<a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
-{% endif %}
-{% endif %}
-
-{{ page_obj.number }}
-
-{% if page_obj.has_next %}
-<a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
-{% if paginator.num_pages != page_obj.next_page_number %}
-...
-<a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-{% endif %}
-{% endif %}
-{% endcache %}
+{% include 'pagination.html' %}
 {% endblock content %}

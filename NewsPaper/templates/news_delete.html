@@ -1,19 +1,20 @@
 {% extends 'default.html' %}
+{% load i18n %}
 
 {% block title %}
-Удаление новости
+{% trans 'Удаление новости' %}
 {% endblock title %}
 
 {% block content %}
-<h1>Удаление новости</h1>
+<h1>{% trans 'Удаление новости' %}</h1>
 <hr>
 <form action="" method="post">
     {% csrf_token %}
     {% if object.article_or_news == 'NE' %}
-    <p>Удалить "{{ object.name }}"?</p>
+    <p>{% trans 'Удалить' %} "{{ object.name }}"?</p>
     <input type="submit" value="Удалить"/>
     {% else %}
-    <p>"{{ object.name }}" не является новостью.</p>
+    <p>"{{ object.name }}" {% trans 'не является новостью' %}.</p>
     {% endif %}
 </form>
 {% endblock content %}

@@ -1,24 +1,25 @@
 {% extends 'default.html' %}
+{% load i18n %}
 
 {% load custom_filters %}
 
 {% block title %}
-Новости и статьи
+{% trans 'Новости и статьи' %}
 {% endblock title %}
 
 
 {% block content %}
 {% if is_not_authors %}
-<button><a href="upgrade/">Стать автором</a></button>
+<button><a href="upgrade/">{% trans 'Стать автором' %}</a></button>
 {% endif %}
-<h1>Количество всех новостей и статей на этой странице: {{ posts|length }}</h1>
+<h1>{% trans 'Количество всех новостей и статей на этой странице' %}: {{ posts|length }}</h1>
 <hr>
 {% if posts %}
 <table>
     <tr>
-        <td>Заголовок</td>
-        <td>Дата публикации</td>
-        <td>Текст (первые 20 слов)</td>
+        <td>{% trans 'Заголовок' %}</td>
+        <td>{% trans 'Дата публикации' %}</td>
+        <td>{% trans 'Текст (первые 20 слов)' %}</td>
     </tr>
     {% for post in posts %}
     <tr>
@@ -29,28 +30,9 @@
     {% endfor %}
 </table>
 {% else %}
-<h2>Новостей и статей нет! По крайней мере, на сегодня.</h2>
+<h2>{% trans 'Новостей и статей нет! По крайней мере, на сегодня.' %}</h2>
 {% endif %}
 
 
-{% load cache %}
-{% cache 300 pagination %}
-{% if page_obj.has_previous %}
-<a href="?page=1">1</a>
-{% if page_obj.previous_page_number != 1 %}
-...
-<a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
-{% endif %}
-{% endif %}
-
-{{ page_obj.number }}
-
-{% if page_obj.has_next %}
-<a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
-{% if paginator.num_pages != page_obj.next_page_number %}
-...
-<a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-{% endif %}
-{% endif %}
-{% endcache %}
+{% include 'pagination.html' %}
 {% endblock content %}

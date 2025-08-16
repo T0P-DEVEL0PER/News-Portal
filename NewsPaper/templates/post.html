@@ -1,25 +1,26 @@
 {% extends 'default.html' %}
+{% load i18n %}
 
 {% load custom_filters %}
 
 {% block title %}
 {% if post.article_or_news == 'NE' %}
-Новость
+{% trans 'Новость' %}
 {% else %}
-Статья
+{% trans 'Статья' %}
 {% endif %}
 {% endblock title %}
 
 
 {% block content %}
 {% if is_not_authors %}
-<button> <a href="upgrade/">Стать автором</a> </button>
+<button> <a href="upgrade/">{% trans 'Стать автором' %}</a> </button>
 {% endif %}
 <table>
     <tr>
-        <td>Заголовок</td>
-        <td>Дата публикации</td>
-        <td>Текст</td>
+        <td>{% trans 'Заголовок' %}</td>
+        <td>{% trans 'Дата публикации' %}</td>
+        <td>{% trans 'Текст' %}</td>
     </tr>
     <tr>
         <td>{{ post.name|censor }}</td>

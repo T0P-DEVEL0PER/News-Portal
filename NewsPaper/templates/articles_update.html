@@ -1,11 +1,12 @@
 {% extends 'default.html' %}
+{% load i18n %}
 
 {% block title %}
-Изменение статьи
+{% trans 'Изменение статьи' %}
 {% endblock title %}
 
 {% block content %}
-<h1>Изменение статьи</h1>
+<h1>{% trans 'Изменение статьи' %}</h1>
 <hr>
 <form action="" method="post">
     {% csrf_token %}
@@ -13,7 +14,7 @@
     {{ form.as_p }}
     <input type="submit" value="Изменить"/>
     {% else %}
-    <p>"{{ object.name }}" не является статьёй.</p>
+    <p>"{{ object.name }}" {% trans 'не является статьёй' %}.</p>
     {% endif %}
 </form>
 {% endblock content %}

@@ -6,8 +6,9 @@
     <title>Document</title>
 </head>
 <body>
+    {% include 'set_lang.html' %}
     {% load account %}
-    <h1>Спасибо за регистрацию, {{ user.username }}!</h1>
-    <h3>Пожалуйста, перейдите по <a href="{{ activate_url }}">ссылке</a> для активации Вашего аккаунта.</h3>
+    <h1>{% trans 'Спасибо за регистрацию' %}, {{ user.username }}!</h1>
+    <h3>{% trans 'Пожалуйста, перейдите по' %} <a href="{{ activate_url }}">{% trans 'ссылке' %}</a> {% trans 'для активации Вашего аккаунта.' %}</h3>
 </body>
 </html>
