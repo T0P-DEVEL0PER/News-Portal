@@ -1,3 +1,4 @@
+import pytz
 from datetime import date, timedelta
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView,  TemplateView
@@ -11,6 +12,9 @@ from .models import Post, Author, UserCategory, Category
 from .filters import PostFilter
 from .tasks import mail_to_subs
 from django.core.cache import cache
+from django.views import View
+from django.utils import timezone
+from django.http.response import HttpResponse
 
 
 class LkView(LoginRequiredMixin, TemplateView):
@@ -19,6 +23,7 @@ class LkView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
+        context['current_time'] = timezone.localtime()
         return context
 
 
@@ -32,6 +37,7 @@ class PostsList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
+        context['current_time'] = timezone.localtime()
         return context
 
 
@@ -44,6 +50,7 @@ class PostDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
+        context['current_time'] = timezone.localtime()
         return context
 
     def get_object(self, *args, **kwargs):
@@ -79,6 +86,7 @@ class NewsCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
             datetime_of_creation__gte=date.today(),
             datetime_of_creation__lt=date.today() + timedelta(days=1)
         ))
+        context['current_time'] = timezone.localtime()
         return context
 
 
@@ -88,11 +96,21 @@ class NewsUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Post
     template_name = 'news_update.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.localtime()
+        return context
+
 
 class NewsDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'news_delete.html'
     success_url = reverse_lazy('post_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.localtime()
+        return context
 
 
 class ArticlesCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -116,6 +134,7 @@ class ArticlesCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
             datetime_of_creation__gte=date.today(),
             datetime_of_creation__lt=date.today() + timedelta(days=1)
         ))
+        context['current_time'] = timezone.localtime()
         return context
 
 
@@ -125,11 +144,21 @@ class ArticlesUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Post
     template_name = 'articles_update.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.localtime()
+        return context
+
 
 class ArticlesDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'articles_delete.html'
     success_url = reverse_lazy('post_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.localtime()
+        return context
 
 
 @login_required
@@ -153,6 +182,7 @@ class TechList(ListView):
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['tech'] = Post.objects.filter(category__name='Технологии')
+        context['current_time'] = timezone.localtime()
         return context
 
 
@@ -167,6 +197,7 @@ class SociumList(ListView):
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['socium'] = Post.objects.filter(category__name='Общество')
+        context['current_time'] = timezone.localtime()
         return context
 
 
@@ -181,6 +212,7 @@ class CultureList(ListView):
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['culture'] = Post.objects.filter(category__name='Культура')
+        context['current_time'] = timezone.localtime()
         return context
 
 
@@ -195,6 +227,7 @@ class ScienceList(ListView):
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['science'] = Post.objects.filter(category__name='Наука')
+        context['current_time'] = timezone.localtime()
         return context
 
 
@@ -220,3 +253,19 @@ def culture_subscribe(request):
 def science_subscribe(request):
     UserCategory.objects.create(user=request.user, category=Category.objects.get(name='Наука'))
     return redirect('http://127.0.0.1:8000/news/science/')
+
+
+class SetupTimezone(View):
+    def get(self, request):
+        context = {
+            'current_time': timezone.localtime(),
+            'timezones': pytz.common_timezones
+        }
+
+        return HttpResponse(render(request, 'setup_timezone.html', context))
+
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        print(request.session['django_timezone'])
+        print(timezone.localtime())
+        return redirect('http://127.0.0.1:8000/news/setup_timezone')

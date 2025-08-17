@@ -3,12 +3,12 @@ from .views import (
     PostsList, PostDetail, NewsCreate, NewsUpdate, NewsDelete,
     ArticlesCreate, ArticlesUpdate, ArticlesDelete, post_search, upgrade_me, LkView,
     TechList, SociumList, CultureList, ScienceList,
-    tech_subscribe, socium_subscribe, culture_subscribe, science_subscribe,
+    tech_subscribe, socium_subscribe, culture_subscribe, science_subscribe, SetupTimezone,
 )
 from django.views.decorators.cache import cache_page
 
 urlpatterns = [
-    path('', cache_page(60*1)(PostsList.as_view()), name='posts_list'),
+    path('', cache_page(60*5)(PostsList.as_view()), name='posts_list'),
     path('<int:pk>', cache_page(60*5)(PostDetail.as_view()), name='post_detail'),
     path('search/', post_search, name="post_search"),
     path('news/create/', NewsCreate.as_view(), name='news_create'),
@@ -27,4 +27,5 @@ urlpatterns = [
     path('socium_subscribe/', socium_subscribe, name='socium_subscribe'),
     path('culture_subscribe/', culture_subscribe, name='culture_subscribe'),
     path('science_subscribe/', science_subscribe, name='science_subscribe'),
+    path('setup_timezone/', SetupTimezone.as_view(), name='setup_timezone'),
 ]

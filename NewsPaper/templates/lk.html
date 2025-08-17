@@ -6,6 +6,9 @@
 {% endblock title %}
 
 {% block content %}
+<style>
+    body {background-color: {% if current_time.hour >= 19 or current_time.hour <= 7 %} darkcyan {% else %} powderblue {% endif %};}
+</style>
 {% if is_not_authors %}
 <button> <a href="http://127.0.0.1:8000/news/upgrade/">{% trans 'Стать автором' %}</a> </button>
 {% endif %}

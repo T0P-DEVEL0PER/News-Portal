@@ -6,9 +6,26 @@
     <title>Document</title>
 </head>
 <body>
-    {% include 'set_lang.html' %}
-    {% load account %}
-    <h1>{% trans 'Спасибо за регистрацию' %}, {{ user.username }}!</h1>
-    <h3>{% trans 'Пожалуйста, перейдите по' %} <a href="{{ activate_url }}">{% trans 'ссылке' %}</a> {% trans 'для активации Вашего аккаунта.' %}</h3>
+{% load i18n %}
+<form action="{% url 'set_language' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ redirect_to }}">
+
+    <select name="language" id="">
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% for language in languages %}
+        <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+            {{ language.name_local }} - {{ language.code }}
+        </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="set">
+</form>
+{% load account %}
+<h1>{% trans 'Спасибо за регистрацию' %}, {{ user.username }}!</h1>
+<h3>{% trans 'Пожалуйста, перейдите по' %} <a href="{{ activate_url }}">{% trans 'ссылке' %}</a> {% trans 'для активации
+    Вашего аккаунта.' %}</h3>
 </body>
 </html>

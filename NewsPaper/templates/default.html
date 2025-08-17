@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load i18n %}
+{% load tz %}
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -47,16 +48,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/news/articles/create/">{% trans 'Публикация статьи' %}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/news/setup_timezone">Выбор часового пояса</a>
+                </li>
             </ul>
         </div>
-        <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST запросов -->
+    </div>
+    <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %}
         <input type="hidden" name="next" value="{{ redirect_to }}">
 
         <select name="language" id="">
-            {% get_available_languages as LANGUAGES %} <!-- получаем языки -->
-            {% get_language_info_list for LANGUAGES as languages %} <!-- Помещаем их в список languages -->
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
             {% get_current_language as LANGUAGE_CODE %}
-            {% for language in languages %} <!-- Итерируясь по списку, выводим их название на языке пользователя и код -->
+            {% for language in languages %}
                 <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
                     {{ language.name_local }} - {{ language.code }}
                 </option>
@@ -64,7 +69,6 @@
         </select>
         <input type="submit" value="set">
     </form>
-    </div>
 </nav>
 {% endcache %}
 <!-- Page content-->

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Author, Category, Post, PostCategory, Comment, UserCategory
+from modeltranslation.admin import TranslationAdmin
 
 
 class AuthorAdmin(admin.ModelAdmin):
@@ -42,6 +43,14 @@ class UserCategoryAdmin(admin.ModelAdmin):
     list_display = ('user', 'category')
     list_filter = ('user', 'category')
     search_fields = ('user', 'category')
+
+
+class CategoryTAdmin(TranslationAdmin):
+    model = Category
+
+
+class PostTAdmin(TranslationAdmin):
+    model = Post
 
 
 admin.site.register(Author, AuthorAdmin)
